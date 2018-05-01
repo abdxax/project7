@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Project7</string>
+    <string name="setting">Setting </string>
+    <string name="noData">No Data Display </string>
+    <string name="noIntremt">No network is available</string>
+    <string name="section">Section</string>
+    <string name="sport">sport</string>
+    <string name="business">Business</string>
+    <string name="news">News</string>
+    <string name="music">Music</string>
+    <string name="save">Save</string>
+</resources>
