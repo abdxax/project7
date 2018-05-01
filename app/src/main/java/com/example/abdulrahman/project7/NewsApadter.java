@@ -27,9 +27,11 @@ public class NewsApadter extends ArrayAdapter<News> {
         TextView title = view.findViewById(R.id.titlenews);
         TextView section = view.findViewById(R.id.sectionnews);
         TextView date = view.findViewById(R.id.datenews);
+        TextView auth=view.findViewById(R.id.auths);
         title.setText(newsList.get(position).getTitle());
         section.setText(newsList.get(position).getSection());
         date.setText(newsList.get(position).getDate());
+        auth.setText(newsList.get(position).getAuth());
 
         return view;
     }

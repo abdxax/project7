@@ -47,8 +47,6 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
             if (connection.getResponseCode() == 200) {
                 InputStream inputStream = connection.getInputStream();
                 newsList = listNewsJson(inputStream);
-            } else {
-//                Toast.makeText(getContext(),"Not true",Toast.LENGTH_LONG).show();
             }
 
         } catch (MalformedURLException e) {
@@ -65,6 +63,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         List<News> newsList = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
+        String name="";
         StringBuilder builder = new StringBuilder();
         while ((line = bufferedReader.readLine()) != null) {
             builder.append(line);
@@ -79,7 +78,15 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
             String section = c.getString("sectionName");
             String date = c.getString("webPublicationDate");
             String url = c.getString("webUrl");
-            newsList.add(new News(title, section, date, url));
+            try {
+                JSONArray array=c.getJSONArray("tags");
+                JSONObject o=array.getJSONObject(0);
+                name=o.getString("firstName")+" "+o.getString("lastName");
+            }
+            catch (Exception e){
+
+            }
+            newsList.add(new News(title, section, date, url,name));
         }
 
         return newsList;

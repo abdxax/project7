@@ -92,11 +92,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<News>> loader, List<News> data) {
-        newsList = data;
-        apadter = new NewsApadter(this, newsList);
-        listView.setAdapter(apadter);
+        if (data.isEmpty()) {
+            msg.setText(R.string.noData);
+        } else {
+            newsList = data;
+            apadter = new NewsApadter(this, newsList);
+            listView.setAdapter(apadter);
+        }
     }
-
     @Override
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {
 

@@ -5,13 +5,15 @@ public class News {
     private String section;
     private String date;
     private String url;
+    private String auth;
 
 
-    public News(String title, String section, String date, String url) {
+    public News(String title, String section, String date, String url, String auth) {
         this.title = title;
         this.section = section;
         this.date = date;
         this.url = url;
+        this.auth=auth;
     }
 
 
@@ -31,5 +33,7 @@ public class News {
         return url;
     }
 
-
+    public String getAuth() {
+        return auth;
+    }
 }
