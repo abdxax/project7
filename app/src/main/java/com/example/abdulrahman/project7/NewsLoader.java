@@ -35,7 +35,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
         try {
             SharedPreferences preferences = getContext().getSharedPreferences("section", Context.MODE_PRIVATE);
-            String sections = preferences.getString("sec", null);
+            String sections = preferences.getString("sec", "news");
             String url = "http://content.guardianapis.com/search?&show-tags=contributor&q=debates&section=" + sections + "&api-key=3790bba9-e24a-4e1c-aa78-2cd5aa8bd76e";
 
             URL url1 = new URL(url);
