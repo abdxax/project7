@@ -40,17 +40,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         NetworkInfo info = manager.getActiveNetworkInfo();
         if (info != null && info.isConnected()) {
             getSupportLoaderManager().initLoader(0, null, this).forceLoad();
-
         } else {
-
             msg.setText(R.string.noIntremt);
         }
-
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         apadter = new NewsApadter(this, newsList);
         listView.setAdapter(apadter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
             }
         });
-
     }
 
     @Override
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (item.getItemId()) {
             case R.id.setting:
                 startActivity(new Intent(this, Setting.class));
-                fileList();
 
         }
         return super.onOptionsItemSelected(item);
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             listView.setAdapter(apadter);
         }
     }
+
     @Override
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {
 

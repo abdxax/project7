@@ -1,44 +1,70 @@
 package com.example.abdulrahman.project7;
 
-import android.content.Context;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
+import android.app.Fragment;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+
 
 public class Setting extends AppCompatActivity {
-    TextView textView;
+
     SharedPreferences preference;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        textView = (TextView) findViewById(R.id.textView2);
-        preference = this.getSharedPreferences("section", Context.MODE_PRIVATE);
-        String secn = preference.getString("sec", "news");
-        if (secn != null) {
-            textView.setText(secn);
+        preference = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = this.getSharedPreferences("section", MODE_PRIVATE);
+        Fragment fragment = new SettingFragment();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        if (savedInstanceState == null) {
+            fragmentTransaction.add(R.id.activeseeting, fragment, "deeting_fragment");
+            fragmentTransaction.commit();
+        } else {
+            fragment = getFragmentManager().findFragmentByTag("deeting_fragment");
         }
     }
 
-    public void butSetting(View view) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        switch (preference.getString("settingActivity", "news")) {
+            case "News":
+                editor.putString("sec", "news");
+                editor.commit();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        OptionDialog optionDialog = new OptionDialog();
-        optionDialog.show(fragmentManager, "TAG");
+                break;
+            case "Business":
+                editor.putString("sec", "business");
+                editor.commit();
+                break;
+            case "sport":
+                editor.putString("sec", "sport");
+                editor.commit();
+                break;
+            case "Music":
+                editor.putString("sec", "music");
+                editor.commit();
+                break;
+        }
 
     }
 
-    public void addSection(String Section) {
-        SharedPreferences.Editor editor = preference.edit();
-        editor.putString("sec", Section);
-        editor.commit();
-        textView.setText(preference.getString("sec", null));
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+    public static class SettingFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.setting_scren);
+
+
+        }
     }
 }

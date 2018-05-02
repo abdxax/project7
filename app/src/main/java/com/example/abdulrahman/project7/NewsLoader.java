@@ -63,7 +63,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         List<News> newsList = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
-        String name="";
+        String name = "";
         StringBuilder builder = new StringBuilder();
         while ((line = bufferedReader.readLine()) != null) {
             builder.append(line);
@@ -79,14 +79,13 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
             String date = c.getString("webPublicationDate");
             String url = c.getString("webUrl");
             try {
-                JSONArray array=c.getJSONArray("tags");
-                JSONObject o=array.getJSONObject(0);
-                name=o.getString("firstName")+" "+o.getString("lastName");
-            }
-            catch (Exception e){
+                JSONArray array = c.getJSONArray("tags");
+                JSONObject o = array.getJSONObject(0);
+                name = o.getString("firstName") + " " + o.getString("lastName");
+            } catch (Exception e) {
 
             }
-            newsList.add(new News(title, section, date, url,name));
+            newsList.add(new News(title, section, date, url, name));
         }
 
         return newsList;

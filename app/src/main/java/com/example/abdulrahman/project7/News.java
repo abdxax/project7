@@ -13,7 +13,7 @@ public class News {
         this.section = section;
         this.date = date;
         this.url = url;
-        this.auth=auth;
+        this.auth = auth;
     }
 
 
