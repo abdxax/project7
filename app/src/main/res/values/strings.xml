@@ -10,6 +10,7 @@
     <string name="music">Music</string>
     <string name="save">Save</string>
     <string name="active">settingActivity</string>
+
     <array name="list">
         <item>sport</item>
         <item>Business</item>

@@ -39,10 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+    
 
     @Override
     protected void onResume() {
@@ -66,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
             }
         });
+
     }
 
     @Override
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (item.getItemId()) {
             case R.id.setting:
                 startActivity(new Intent(this, Setting.class));
+                finish();
 
         }
         return super.onOptionsItemSelected(item);

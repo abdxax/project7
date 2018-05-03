@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 
 public class Setting extends AppCompatActivity {
@@ -57,7 +59,22 @@ public class Setting extends AppCompatActivity {
         }
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_setting, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.saveseeting:
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
     public static class SettingFragment extends PreferenceFragment {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
