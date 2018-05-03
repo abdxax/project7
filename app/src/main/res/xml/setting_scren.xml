@@ -6,7 +6,8 @@
         android:key="@string/active"
         android:entries="@array/list"
         android:entryValues="@array/list"
-        android:defaultValue="@string/news"
+
         />
+
 
 </PreferenceScreen>

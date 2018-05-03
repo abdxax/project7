@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.app.Fragment;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -34,31 +35,7 @@ public class Setting extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        switch (preference.getString("settingActivity", "news")) {
-            case "News":
-                editor.putString("sec", "news");
-                editor.commit();
 
-                break;
-            case "Business":
-                editor.putString("sec", "business");
-                editor.commit();
-                break;
-            case "sport":
-                editor.putString("sec", "sport");
-                editor.commit();
-                break;
-            case "Music":
-                editor.putString("sec", "music");
-                editor.commit();
-                break;
-        }
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_setting, menu);
@@ -75,13 +52,34 @@ public class Setting extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public static class SettingFragment extends PreferenceFragment {
+
+    public static class SettingFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.setting_scren);
 
 
+            Preference searchCategory = findPreference(getString(R.string.active));
+            bindPreferenceSummaryToValue(searchCategory);
+
+
+        }
+
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            String stringValue = newValue.toString();
+            preference.setSummary(stringValue);
+            return true;
+
+        }
+
+        private void bindPreferenceSummaryToValue(Preference preference) {
+            preference.setOnPreferenceChangeListener(this);
+            SharedPreferences preferences =
+                    PreferenceManager.getDefaultSharedPreferences(preference.getContext());
+            String preferenceString = preferences.getString(preference.getKey(), "");
+            onPreferenceChange(preference, preferenceString);
         }
     }
 }

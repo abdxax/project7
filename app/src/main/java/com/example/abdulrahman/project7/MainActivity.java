@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -39,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -60,9 +59,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
+
                 }
             }
         });
+
 
     }
 
@@ -87,7 +88,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new NewsLoader(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String section = sharedPreferences.getString("settingActivity", "news");
+        String sec = section.toLowerCase();
+        editor.putString("sec", sec);
+        editor.commit();
+        String url = "http://content.guardianapis.com/search?&show-tags=contributor&q=debates&section=" + sec + "&api-key=3790bba9-e24a-4e1c-aa78-2cd5aa8bd76e";
+
+        return new NewsLoader(this, url);
     }
 
     @Override

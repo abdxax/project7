@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
+    String url;
 
-    public NewsLoader(@NonNull Context context) {
+    public NewsLoader(@NonNull Context context, String url) {
         super(context);
+        this.url = url;
 
     }
 
@@ -34,10 +36,6 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         List<News> newsList = new ArrayList<>();
 
         try {
-            SharedPreferences preferences = getContext().getSharedPreferences("section", Context.MODE_PRIVATE);
-            String sections = preferences.getString("sec", "news");
-            String url = "http://content.guardianapis.com/search?&show-tags=contributor&q=debates&section=" + sections + "&api-key=3790bba9-e24a-4e1c-aa78-2cd5aa8bd76e";
-
             URL url1 = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
             connection.setRequestMethod("GET");
