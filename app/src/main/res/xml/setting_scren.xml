@@ -2,10 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
         android:title="@string/section"
-        android:summary=""
+        android:summary="@string/news"
         android:key="@string/active"
         android:entries="@array/list"
         android:entryValues="@array/list"
+        android:defaultValue="@string/news"
 
         />
 
