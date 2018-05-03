@@ -36,13 +36,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         listView = findViewById(R.id.list_new);
         msg = findViewById(R.id.textView3);
         newsList = new ArrayList<>();
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo info = manager.getActiveNetworkInfo();
-        if (info != null && info.isConnected()) {
-            getSupportLoaderManager().initLoader(0, null, this).forceLoad();
-        } else {
-            msg.setText(R.string.noIntremt);
-        }
+
     }
 
     @Override
@@ -53,6 +47,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onResume() {
         super.onResume();
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        if (info != null && info.isConnected()) {
+            getSupportLoaderManager().initLoader(0, null, this).forceLoad();
+        } else {
+            msg.setText(R.string.noIntremt);
+        }
         apadter = new NewsApadter(this, newsList);
         listView.setAdapter(apadter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
